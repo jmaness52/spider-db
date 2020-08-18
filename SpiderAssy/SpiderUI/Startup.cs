@@ -16,6 +16,8 @@ using Microsoft.Extensions.Hosting;
 using SpiderUI.Areas.Identity;
 using SpiderUI.Data;
 using Microsoft.AspNetCore.HttpOverrides;
+using SpiderUI.Email;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace SpiderUI
 {
@@ -41,6 +43,10 @@ namespace SpiderUI
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
+
+            //Email Sending
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("Email"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
