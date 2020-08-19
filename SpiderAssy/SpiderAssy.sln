@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiderUI", "SpiderUI\SpiderUI.csproj", "{34D54B3B-EE7E-4473-B4A7-5A63CCE9B811}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpiderUI", "SpiderUI\SpiderUI.csproj", "{34D54B3B-EE7E-4473-B4A7-5A63CCE9B811}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiderDatabase", "SpiderDatabase\SpiderDatabase.csproj", "{FF1786B4-E102-4E5C-A594-9B30201B387C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{34D54B3B-EE7E-4473-B4A7-5A63CCE9B811}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34D54B3B-EE7E-4473-B4A7-5A63CCE9B811}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34D54B3B-EE7E-4473-B4A7-5A63CCE9B811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF1786B4-E102-4E5C-A594-9B30201B387C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF1786B4-E102-4E5C-A594-9B30201B387C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF1786B4-E102-4E5C-A594-9B30201B387C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF1786B4-E102-4E5C-A594-9B30201B387C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

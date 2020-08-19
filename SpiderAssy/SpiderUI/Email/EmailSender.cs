@@ -8,16 +8,17 @@ namespace SpiderUI.Email
 {
     public class EmailSender : IEmailSender
     {
+
+        private AuthMessageSenderOptions _options;
+        
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
         {
-            Options = optionsAccessor.Value;
+            _options = optionsAccessor.Value;
         }
-
-        public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            return Execute(Options.SendGridKey, subject, message, email);
+            return Execute(_options.SendGridKey, subject, message, email);
         }
 
         public Task Execute(string apiKey, string subject, string message, string email)
@@ -25,7 +26,7 @@ namespace SpiderUI.Email
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress(Options.ConfirmationEmailAddress, Options.SendGridUser),
+                From = new EmailAddress(_options.SenderEmailAddress, _options.SendGridUser),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message

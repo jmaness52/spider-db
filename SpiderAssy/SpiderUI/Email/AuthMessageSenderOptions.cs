@@ -8,7 +8,11 @@ namespace SpiderUI.Email
     public class AuthMessageSenderOptions
     {
         public string SendGridUser { get; set; }
+
         public string SendGridKey { get; set; }
-        public string ConfirmationEmailAddress { get; set; }
+
+        public string AdminEmailAddress { get; set; }
+
+        public string SenderEmailAddress { get; set; }
     }
 }
