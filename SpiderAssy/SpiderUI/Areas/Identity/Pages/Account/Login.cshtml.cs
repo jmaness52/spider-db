@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using SpiderDatabase;
+using Microsoft.Extensions.Configuration;
 
 namespace SpiderUI.Areas.Identity.Pages.Account
 {
@@ -21,14 +21,17 @@ namespace SpiderUI.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private IConfiguration _configuration;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IConfiguration config)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _configuration = config;
         }
 
         [BindProperty]
@@ -70,6 +73,7 @@ namespace SpiderUI.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -86,6 +90,7 @@ namespace SpiderUI.Areas.Identity.Pages.Account
                     _logger.LogInformation("User logged in.");
                     
                     //TODO: Check that the user exists in the main DB,  if not,  bring them to a user page or add them to the users table?
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -102,6 +107,8 @@ namespace SpiderUI.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
+
+                
             }
 
             // If we got this far, something failed, redisplay form

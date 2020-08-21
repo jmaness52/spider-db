@@ -13,11 +13,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using SpiderUI.Areas.Identity;
 using SpiderUI.Data;
-using Microsoft.AspNetCore.HttpOverrides;
 using SpiderUI.Email;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using SpiderDatabase;
+using SpiderBusinessLogic.LookupTables;
 
 namespace SpiderUI
 {
@@ -77,6 +79,13 @@ namespace SpiderUI
             //Email Sending
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("EmailSending"));
+
+            //SQL data access, pass in the connection string to the constructor
+            services.AddSingleton<IDataAccess>(x => new DataAccess(Configuration.GetConnectionString("MySQL")));
+
+            //Lookup Tables
+            services.AddSingleton<UserPermissions>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
