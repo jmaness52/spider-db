@@ -12,9 +12,13 @@ namespace SpiderBusinessLogic.LookupTables
     public class UserPermissions
     {
         private const string AdminLevel = "Admin";
-        public static List<UserPermissionsModel> Permissions { get; set; }
+        private const string StandardLevel = "Standard User";
+        public List<UserPermissionsModel> Permissions { get; set; }
 
-        public static UserPermissionsModel Admin => Permissions.Where(x => x.LevelName.Equals(AdminLevel)).FirstOrDefault();
+        public UserPermissionsModel Admin => Permissions.Where(x => x.LevelName.Equals(AdminLevel)).FirstOrDefault();
+
+        public UserPermissionsModel Standard => Permissions.Where(x => x.LevelName.Equals(StandardLevel)).FirstOrDefault();
+
         public UserPermissions(IDataAccess data)
         {
             LoadLookupData(data);

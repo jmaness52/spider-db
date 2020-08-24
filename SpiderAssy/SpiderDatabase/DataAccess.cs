@@ -21,7 +21,7 @@ namespace SpiderDatabase
         {
             using (IDbConnection connection = new MySqlConnection(_connectionString))
             {
-                var rows = await connection.QueryAsync<T>(sql, parameters);
+                var rows = await connection.QueryAsync<T>(sql, parameters, null, null, CommandType.StoredProcedure);
 
                 return rows.ToList();
             }
@@ -31,7 +31,7 @@ namespace SpiderDatabase
         {
             using (IDbConnection connection = new MySqlConnection(_connectionString))
             {
-                return connection.ExecuteAsync(sql, parameters);
+                return connection.ExecuteAsync(sql, parameters, null, null, CommandType.StoredProcedure);
             }
         }
     }

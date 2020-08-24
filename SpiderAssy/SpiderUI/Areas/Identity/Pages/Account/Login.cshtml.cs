@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using SpiderBusinessLogic.Managers;
+using Microsoft.AspNetCore.Components;
 
 namespace SpiderUI.Areas.Identity.Pages.Account
 {
@@ -22,16 +24,24 @@ namespace SpiderUI.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private IConfiguration _configuration;
+        private LoginManager _loginManager;
 
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
             UserManager<IdentityUser> userManager,
-            IConfiguration config)
+            IConfiguration config,
+            LoginManager loginManager,
+            NavigationManager navigationManager)
         {
+            //Identity managers
             _userManager = userManager;
             _signInManager = signInManager;
+            
             _logger = logger;
             _configuration = config;
+
+            //spider login manager
+            _loginManager = loginManager;
         }
 
         [BindProperty]
@@ -51,11 +61,8 @@ namespace SpiderUI.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -84,18 +91,23 @@ namespace SpiderUI.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, false, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
-                    
-                    //TODO: Check that the user exists in the main DB,  if not,  bring them to a user page or add them to the users table?
+                    _logger.LogInformation("Identity User logged in.");
 
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    try
+                    {
+                        //Verify user exists in Spider DB,  redirect to appropriate page based on the result
+                        returnUrl = await _loginManager.AttemptUserLogin(Input.Email);
+
+                        return LocalRedirect(returnUrl);
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
                 if (result.IsLockedOut)
                 {

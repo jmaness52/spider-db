@@ -1,0 +1,64 @@
+﻿@page "/NewUser"
+@attribute [Authorize]
+
+@using SpiderBusinessLogic.Managers
+@using SpiderBusinessLogic.Models
+@using SpiderBusinessLogic.LookupTables
+@using Microsoft.AspNetCore.Http
+
+@inject IHttpContextAccessor httpContextAccessor
+@inject LoginManager _loginManager
+@inject NavigationManager NavManager
+@inject UserPermissions _userPermissions
+
+<h3>Create New User</h3>
+<hr />
+<p>Please fill out the form to create a new user in the Spider DB system.</p>
+
+<EditForm Model="@addUserModel" OnValidSubmit="HandleValidSubmit" text-align="right">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <p>
+        <label>
+            First Name:
+            <InputText id="First Name" Class="form-control" @bind-Value="addUserModel.FirstName" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Last Name:
+            <InputText id="Last Name" Class="form-control" @bind-Value="addUserModel.LastName" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Company Name:
+            <InputText id="Company" Class="form-control" @bind-Value="addUserModel.CompanyName" />
+        </label>
+    </p>
+
+    <button type="submit">Submit</button>
+
+</EditForm>
+
+@code {
+    private AddUserModel addUserModel = new AddUserModel();
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            addUserModel.PermissionLevelID = _userPermissions.Standard.Id;
+            await _loginManager.AddNewUser(addUserModel);
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        
+
+        NavManager.NavigateTo("");
+    }
+}

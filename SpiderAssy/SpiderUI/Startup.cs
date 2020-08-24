@@ -20,6 +20,7 @@ using SpiderUI.Data;
 using SpiderUI.Email;
 using SpiderDatabase;
 using SpiderBusinessLogic.LookupTables;
+using SpiderBusinessLogic.Managers;
 
 namespace SpiderUI
 {
@@ -85,6 +86,10 @@ namespace SpiderUI
 
             //Lookup Tables
             services.AddSingleton<UserPermissions>();
+
+            services.AddSingleton<LoginManager>();
+
+            services.AddHttpContextAccessor();
 
         }
 
