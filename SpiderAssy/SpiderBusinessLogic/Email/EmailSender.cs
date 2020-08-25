@@ -4,7 +4,7 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
 
-namespace SpiderUI.Email
+namespace SpiderBusinessLogic.Email
 {
     public class EmailSender : IEmailSender
     {

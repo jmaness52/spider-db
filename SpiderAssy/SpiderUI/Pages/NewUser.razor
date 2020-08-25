@@ -45,16 +45,22 @@
 @code {
     private AddUserModel addUserModel = new AddUserModel();
 
-    private async Task HandleValidSubmit()
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            addUserModel.EmailAdress = httpContextAccessor.HttpContext.User.Identity.Name;
+        }
+
+        private async Task HandleValidSubmit()
     {
         try
         {
             addUserModel.PermissionLevelID = _userPermissions.Standard.Id;
+            
             await _loginManager.AddNewUser(addUserModel);
         }
         catch (Exception)
         {
-
             throw;
         }
         

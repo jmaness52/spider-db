@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using SpiderUI.Areas.Identity;
 using SpiderUI.Data;
-using SpiderUI.Email;
+using SpiderBusinessLogic.Email;
 using SpiderDatabase;
 using SpiderBusinessLogic.LookupTables;
 using SpiderBusinessLogic.Managers;
@@ -80,6 +80,7 @@ namespace SpiderUI
             //Email Sending
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("EmailSending"));
+            services.AddTransient<IEmailManager, EmailManager>();
 
             //SQL data access, pass in the connection string to the constructor
             services.AddSingleton<IDataAccess>(x => new DataAccess(Configuration.GetConnectionString("MySQL")));
