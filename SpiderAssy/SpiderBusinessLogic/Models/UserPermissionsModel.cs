@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpiderDatabase.Models
+namespace SpiderBusinessLogic.Models
 {
     public class UserPermissionsModel
     {

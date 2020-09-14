@@ -75,7 +75,6 @@ namespace SpiderUI
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-            services.AddSingleton<WeatherForecastService>();
 
             //Email Sending
             services.AddTransient<IEmailSender, EmailSender>();
@@ -87,6 +86,8 @@ namespace SpiderUI
 
             //Lookup Tables
             services.AddSingleton<UserPermissions>();
+            services.AddSingleton<GateVoltages>();
+            services.AddSingleton<AnodeVoltages>();
 
             services.AddSingleton<LoginManager>();
 

@@ -1,0 +1,27 @@
+﻿@page "/AddThinPack"
+
+<h3>Add Waffle Pack - Thin Pack</h3>
+
+
+<EditForm Model="@_thinPackAddModel" OnValidSubmit="HandleValidSubmit" text-align="right">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+</EditForm>
+
+
+@code {
+
+    private ThinPackAddModel _thinPackAddModel;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+    }
+
+    private void HandleValidSubmit()
+    {
+
+    }
+}

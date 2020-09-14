@@ -1,0 +1,27 @@
+﻿@page "/AddDiePack"
+
+<h3>Add  Waffle Pack - Die</h3>
+
+
+<EditForm Model="@_diePackAddModel" OnValidSubmit="HandleValidSubmit" text-align="right">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+</EditForm>
+
+
+@code {
+
+    private DiePackAddModel _diePackAddModel;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+    }
+
+    private void HandleValidSubmit()
+    {
+
+    }
+}

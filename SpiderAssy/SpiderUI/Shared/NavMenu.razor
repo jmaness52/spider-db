@@ -13,20 +13,47 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" @onclick="()=>expandInventoryMenu = !expandInventoryMenu">
+                <span class="oi oi-wrench" aria-hidden="true"></span> Inventory
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
+            @if (expandInventoryMenu)
+            {
+                <ul class="nav flex-column">
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" @onclick="()=>expandAddWafflePack = !expandAddWafflePack">
+                            <span class="oi oi-plus" aria-hidden="true"></span> Add Waffle Pack
+                        </NavLink>
+                        @if (expandAddWafflePack)
+                        {
+                            <ul>
+                                <li class="nav-item px-2">
+                                    <NavLink class="nav-link" href="AddDiePack">
+                                        <span class="oi oi-plus" aria-hidden="true"></span> Die
+                                    </NavLink>
+                                </li>
+                                <li class="nav-item px-2">
+                                    <NavLink class="nav-link" href="AddThinPack">
+                                        <span class="oi oi-plus" aria-hidden="true"></span> Thin Pack
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        }
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href="ViewInventory">
+                            <span class="oi oi-compass" aria-hidden="true"></span> View Inventory
+                        </NavLink>
+                    </li>
+                </ul>
+            }
         </li>
     </ul>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
+    private bool expandInventoryMenu; //expands the main inventory menu
+    private bool expandAddWafflePack; // expands the add waffle pack submenu
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SpiderDatabase;
-using SpiderDatabase.Models;
+using SpiderBusinessLogic.Models;
 using SpiderDatabase.Procedures;
 
 namespace SpiderBusinessLogic.LookupTables

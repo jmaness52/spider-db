@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using SpiderBusinessLogic.Exceptions;
 using SpiderBusinessLogic.Models;
 using SpiderDatabase;
-using SpiderDatabase.Models;
 using SpiderDatabase.Procedures;
 
 namespace SpiderBusinessLogic.Managers
